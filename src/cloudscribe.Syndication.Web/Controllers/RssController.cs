@@ -47,6 +47,7 @@ namespace cloudscribe.Syndication.Web.Controllers
         private IXmlFormatter xmlFormatter;
 
         [HttpGet]
+        [ResponseCache(CacheProfileName = "RssCacheProfile")]
         public async Task<IActionResult> Index()
         {
             currentChannelProvider = channelResolver.GetCurrentChannelProvider(channelProviders);
