@@ -2,20 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:                  Joe Audette
 // Created:                 2016-04-02
-// Last Modified:           2016-05-18
+// Last Modified:           2016-07-15
 // 
 
-
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using Microsoft.AspNetCore.Mvc;
 
 namespace cloudscribe.Syndication.Models.Rss
 {
@@ -26,9 +16,7 @@ namespace cloudscribe.Syndication.Models.Rss
 
         }
 
-        public XDocument BuildXml(RssChannel channel
-            //, IUrlHelper urlHelper
-            )
+        public XDocument BuildXml(RssChannel channel)
         {
             //http://cyber.law.harvard.edu/rss/rss.html
             //http://cyber.law.harvard.edu/rss/examples/rss2sample.xml
@@ -143,7 +131,7 @@ namespace cloudscribe.Syndication.Models.Rss
         {
             var rssItem = new XElement(Rss20Constants.ItemTag,
                             new XElement(Rss20Constants.TitleTag, item.Title),
-                            new XElement(Rss20Constants.DescriptionTag, item.Description),
+                            new XElement(Rss20Constants.DescriptionTag, new XCData(item.Description)),
                             new XElement(Rss20Constants.LinkTag, item.Link.ToString()),
                             new XElement(Rss20Constants.GuidTag, item.Link.ToString()),
                             new XElement(Rss20Constants.PubDateTag, item.PublicationDate.ToString("R"))
