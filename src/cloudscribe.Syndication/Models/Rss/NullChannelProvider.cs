@@ -8,7 +8,6 @@ namespace cloudscribe.Syndication.Models.Rss
     {
         public string Name { get { return "NullChannelProvider"; } }
         
-
         public Task<RssChannel> GetChannel(CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();

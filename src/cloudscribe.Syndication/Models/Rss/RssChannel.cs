@@ -24,6 +24,16 @@ namespace cloudscribe.Syndication.Models.Rss
             this.Description = description;
         }
 
+        /// <summary>
+        /// ie feedburner url
+        /// </summary>
+        public string RemoteFeedUrl { get; } = string.Empty;
+
+        /// <summary>
+        /// ie Feedburner User Agent fragment "FeedBurner"
+        /// </summary>
+        public string RemoteFeedProcessorUseAgentFragment { get; } = string.Empty;
+
         private Collection<RssCategory> channelCategories = null;
         /// <summary>
         /// Gets the categories or tags to which this channel belongs.

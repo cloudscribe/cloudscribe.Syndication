@@ -2,11 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:                  Joe Audette
 // Created:                 2016-04-01
-// Last Modified:           2016-05-18
+// Last Modified:           2016-07-25
 // 
 
 
 using cloudscribe.Syndication.Models.Rss;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -57,7 +58,7 @@ namespace cloudscribe.Syndication.Web.Controllers
                 Response.StatusCode = 404;
                 return new EmptyResult();
             }
-
+            
             var currentChannel = await currentChannelProvider.GetChannel();
 
             if (currentChannel == null)
@@ -66,9 +67,34 @@ namespace cloudscribe.Syndication.Web.Controllers
                 return new EmptyResult();
             }
 
+            if (ShouldRedirect(currentChannel, HttpContext))
+            {
+                Response.Redirect(currentChannel.RemoteFeedUrl, false);
+            }
+
             var xml = xmlFormatter.BuildXml(currentChannel);
 
             return new XmlResult(xml);
+
+        }
+
+        private bool ShouldRedirect(RssChannel channel, HttpContext context)
+        {
+            if (string.IsNullOrEmpty(channel.RemoteFeedUrl)) return false;
+            if (string.IsNullOrEmpty(channel.RemoteFeedProcessorUseAgentFragment)) return false;
+               
+            var userAgentHeaders = context.Request.Headers["User-Agent"];
+            if (userAgentHeaders.Count == 0) return true;
+                
+            var userAgent = userAgentHeaders[0];
+            if (string.IsNullOrEmpty(userAgent)) return true;
+            
+            if (userAgent.Contains(channel.RemoteFeedProcessorUseAgentFragment))
+            {
+                return false;
+            }
+               
+            return true;
 
         }
 
