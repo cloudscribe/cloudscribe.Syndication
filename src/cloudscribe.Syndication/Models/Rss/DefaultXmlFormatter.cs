@@ -133,7 +133,7 @@ namespace cloudscribe.Syndication.Models.Rss
                             new XElement(Rss20Constants.TitleTag, item.Title),
                             new XElement(Rss20Constants.DescriptionTag, new XCData(item.Description)),
                             new XElement(Rss20Constants.LinkTag, item.Link.ToString()),
-                            new XElement(Rss20Constants.GuidTag, item.Link.ToString()),
+                            new XElement(Rss20Constants.GuidTag, item.Guid.Value),
                             new XElement(Rss20Constants.PubDateTag, item.PublicationDate.ToString("R"))
                            );
 
