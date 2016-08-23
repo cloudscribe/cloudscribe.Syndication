@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:                  Joe Audette
 // Created:                 2016-04-02
-// Last Modified:           2016-07-15
+// Last Modified:           2016-08-23
 // 
 
 using System.Xml.Linq;
