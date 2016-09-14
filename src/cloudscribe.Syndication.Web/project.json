@@ -1,5 +1,5 @@
 ﻿{
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "asp.netcore mvc controller for rss feeds",
     "authors": [ "Joe Audette" ],
     "packOptions": {
@@ -16,9 +16,9 @@
 
     "dependencies": {
         "NETStandard.Library": "1.6.0-*",
-        "Microsoft.AspNetCore.Mvc": "1.0.0-*",
-        "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-*",
-        "cloudscribe.Syndication": "1.0.5-*"
+        "Microsoft.AspNetCore.Mvc": "1.0.*",
+        "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.*",
+        "cloudscribe.Syndication": "1.0.*"
     },
 
     "frameworks": {
