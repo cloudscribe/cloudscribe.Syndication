@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{63280118-755A-4A12-BDF7-30981593FCA6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1D69817-76FE-4086-9D57-0D1E0186BD0C}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "cloudscribe.Syndication", "src\cloudscribe.Syndication\cloudscribe.Syndication.xproj", "{CED035BC-D77B-4C0B-8137-01F3CB8196FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.Syndication", "src\cloudscribe.Syndication\cloudscribe.Syndication.csproj", "{CED035BC-D77B-4C0B-8137-01F3CB8196FA}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "cloudscribe.Syndication.Web", "src\cloudscribe.Syndication.Web\cloudscribe.Syndication.Web.xproj", "{61675CCF-BC50-488B-B18E-2E050C361286}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.Syndication.Web", "src\cloudscribe.Syndication.Web\cloudscribe.Syndication.Web.csproj", "{61675CCF-BC50-488B-B18E-2E050C361286}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
