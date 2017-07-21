@@ -3,6 +3,12 @@ a re-useable RSS Feed generator for ASP.NET Core
 
 It was implemented for use in [cloudscribe SimpleContent](https://github.com/joeaudette/cloudscribe.SimpleContent), but could be used by anyone who would like to add [RSS Feed](http://cyber.law.harvard.edu/rss/rss.html) support to their web application.
 
+### Build Status
+
+| Windows  | Linux/Mac |
+| ------------- | ------------- |
+| [![Build status](https://ci.appveyor.com/api/projects/status/si9j58aa51wel2dv?svg=true)](https://ci.appveyor.com/project/joeaudette/cloudscribe-syndication)  | [![Build Status](https://travis-ci.org/joeaudette/cloudscribe.Syndication.svg?branch=master)](https://travis-ci.org/joeaudette/cloudscribe.Syndication)  |
+
 [![Join the chat at https://gitter.im/joeaudette/cloudscribe](https://badges.gitter.im/joeaudette/cloudscribe.svg)](https://gitter.im/joeaudette/cloudscribe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Rationale - why do we need this?
