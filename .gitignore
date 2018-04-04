@@ -197,4 +197,5 @@ src/demo.Web/appsettings.local.overrides.json
 
 **/dp_keys/**
 tools/**
+!tools/packages.config
 
