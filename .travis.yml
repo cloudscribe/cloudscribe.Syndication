@@ -4,9 +4,16 @@ install: true
 mono: none
 dotnet: 2.0.0
 sudo: required
-branches:
-  only:
-    - master
+addons:
+  apt:
+    packages:
+    - gettext
+    - libcurl4-openssl-dev
+    - libicu-dev
+    - libssl-dev
+    - libunwind8
+    - zlib1g
+    
 script:
   - ./build.sh
   
