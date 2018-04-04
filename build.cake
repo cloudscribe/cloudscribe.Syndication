@@ -1,7 +1,7 @@
 #tool nuget:?package=xunit.runner.console&version=2.2.0
 #tool nuget:?package=xunit.runner.visualstudio&version=2.2.0
 
-#load build/paths.cake
+#load cake/paths.cake
 
 var target = Argument("Target", "Build");
 var configuration = Argument("Configuration", "Release");
