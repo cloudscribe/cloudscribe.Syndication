@@ -196,4 +196,5 @@ src/demo.Web/appsettings.local.overrides.json
 .vscode/launch.json
 
 **/dp_keys/**
+tools/**
 
