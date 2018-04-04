@@ -23,6 +23,7 @@ Task("Build")
                             .WithTarget("Build"));
 });
 
-
+Task("Default")
+    .IsDependentOn("Build");
 
 RunTarget(target);
