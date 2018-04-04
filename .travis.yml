@@ -13,6 +13,9 @@ addons:
     - libssl-dev
     - libunwind8
     - zlib1g
+
+before_install:
+  - chmod +x build.sh
     
 script:
   - ./build.sh
