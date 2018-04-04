@@ -9,4 +9,8 @@ branches:
     - master
 script:
   - ./build.sh
+  
+cache:
+  directories:
+    - tools
 
