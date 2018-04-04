@@ -3,7 +3,7 @@
 ##########################################################################
 # This is the Cake bootstrapper script for Linux and OS X.
 # This file was downloaded from https://github.com/cake-build/resources
-# and modified for the Linker build script.
+# Feel free to change this file to fit your needs.
 ##########################################################################
 
 # Define directories.
@@ -14,15 +14,22 @@ CAKE_EXE=$TOOLS_DIR/Cake/Cake.exe
 PACKAGES_CONFIG=$TOOLS_DIR/packages.config
 PACKAGES_CONFIG_MD5=$TOOLS_DIR/packages.config.md5sum
 
-MD5_EXE="md5sum"
+# Define md5sum or md5 depending on Linux/OSX
+MD5_EXE=
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    MD5_EXE="md5 -r"
+else
+    MD5_EXE="md5sum"
+fi
 
 # Define default arguments.
 SCRIPT="build.cake"
 TARGET="Default"
 CONFIGURATION="Release"
-PACKAGE_VERSION=""
-PACKAGE_OUTPUT_DIRECTORY="NuGet"
 VERBOSITY="verbose"
+DRYRUN=
+SHOW_VERSION=false
+SCRIPT_ARGUMENTS=()
 
 # Parse arguments.
 for i in "$@"; do
@@ -30,9 +37,11 @@ for i in "$@"; do
         -s|--script) SCRIPT="$2"; shift ;;
         -t|--target) TARGET="$2"; shift ;;
         -c|--configuration) CONFIGURATION="$2"; shift ;;
-        -v|--version) PACKAGE_VERSION="$2"; shift ;;
-        -o|--output) PACKAGE_OUTPUT_DIRECTORY="$2"; shift ;;
         -v|--verbosity) VERBOSITY="$2"; shift ;;
+        -d|--dryrun) DRYRUN="-dryrun" ;;
+        --version) SHOW_VERSION=true ;;
+        --) shift; SCRIPT_ARGUMENTS+=("$@"); break ;;
+        *) SCRIPT_ARGUMENTS+=("$1") ;;
     esac
     shift
 done
@@ -45,9 +54,9 @@ fi
 # Make sure that packages.config exist.
 if [ ! -f "$TOOLS_DIR/packages.config" ]; then
     echo "Downloading packages.config..."
-    curl -Lsfo "$TOOLS_DIR/packages.config" http://cakebuild.net/download/bootstrapper/packages
+    curl -Lsfo "$TOOLS_DIR/packages.config" https://cakebuild.net/download/bootstrapper/packages
     if [ $? -ne 0 ]; then
-        echo "An error occured while downloading packages.config."
+        echo "An error occurred while downloading packages.config."
         exit 1
     fi
 fi
@@ -57,7 +66,7 @@ if [ ! -f "$NUGET_EXE" ]; then
     echo "Downloading NuGet..."
     curl -Lsfo "$NUGET_EXE" https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
     if [ $? -ne 0 ]; then
-        echo "An error occured while downloading nuget.exe."
+        echo "An error occurred while downloading nuget.exe."
         exit 1
     fi
 fi
@@ -68,7 +77,7 @@ if [ ! -f $PACKAGES_CONFIG_MD5 ] || [ "$( cat $PACKAGES_CONFIG_MD5 | sed 's/\r$/
     find . -type d ! -name . | xargs rm -rf
 fi
 
-"$NUGET_EXE" install -ExcludeVersion
+mono "$NUGET_EXE" install -ExcludeVersion
 if [ $? -ne 0 ]; then
     echo "Could not restore NuGet packages."
     exit 1
@@ -85,4 +94,8 @@ if [ ! -f "$CAKE_EXE" ]; then
 fi
 
 # Start Cake
-exec "$CAKE_EXE" $SCRIPT -experimental -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET -packageVersion=$PACKAGE_VERSION -packageOutputDirectory=$PACKAGE_OUTPUT_DIRECTORY
+if $SHOW_VERSION; then
+    exec mono "$CAKE_EXE" -version
+else
+    exec mono "$CAKE_EXE" $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+fi
