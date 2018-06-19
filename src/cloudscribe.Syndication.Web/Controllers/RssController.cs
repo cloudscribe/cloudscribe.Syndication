@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:                  Joe Audette
 // Created:                 2016-04-01
-// Last Modified:           2016-07-25
+// Last Modified:           2018-06-19
 // 
 
 
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace cloudscribe.Syndication.Web.Controllers
 {
-    [Route("api/[controller]")]
+    
     public class RssController : Controller
     {
         public RssController(
@@ -25,8 +25,8 @@ namespace cloudscribe.Syndication.Web.Controllers
             IXmlFormatter xmlFormatter = null
             )
         {
-            log = logger;
-            this.channelProviders = channelProviders ?? new List<IChannelProvider>();
+            Log = logger;
+            ChannelProviders = channelProviders ?? new List<IChannelProvider>();
             if (channelProviders is List<IChannelProvider>)
             {
                 var list = channelProviders as List<IChannelProvider>;
@@ -36,30 +36,31 @@ namespace cloudscribe.Syndication.Web.Controllers
                 }
             }
 
-            this.channelResolver = channelResolver ?? new DefaultChannelProviderResolver();
-            this.xmlFormatter = xmlFormatter ?? new DefaultXmlFormatter();
+            ChannelResolver = channelResolver ?? new DefaultChannelProviderResolver();
+            XmlFormatter = xmlFormatter ?? new DefaultXmlFormatter();
 
         }
 
-        private ILogger log;
-        private IChannelProviderResolver channelResolver;
-        private IEnumerable<IChannelProvider> channelProviders;
-        private IChannelProvider currentChannelProvider;
-        private IXmlFormatter xmlFormatter;
+        protected ILogger Log { get; private set; }
+        protected IChannelProviderResolver ChannelResolver { get; private set; }
+        protected IEnumerable<IChannelProvider> ChannelProviders { get; private set; }
+        protected IChannelProvider CurrentChannelProvider { get; private set; }
+        protected IXmlFormatter XmlFormatter { get; private set; }
 
         [HttpGet]
         [ResponseCache(CacheProfileName = "RssCacheProfile")]
-        public async Task<IActionResult> Index()
+        [Route("api/rss")]
+        public virtual async Task<IActionResult> Index()
         {
-            currentChannelProvider = channelResolver.GetCurrentChannelProvider(channelProviders);
+            CurrentChannelProvider = ChannelResolver.GetCurrentChannelProvider(ChannelProviders);
 
-            if (currentChannelProvider == null)
+            if (CurrentChannelProvider == null)
             {
                 Response.StatusCode = 404;
                 return new EmptyResult();
             }
             
-            var currentChannel = await currentChannelProvider.GetChannel();
+            var currentChannel = await CurrentChannelProvider.GetChannel();
 
             if (currentChannel == null)
             {
@@ -72,13 +73,13 @@ namespace cloudscribe.Syndication.Web.Controllers
                 Response.Redirect(currentChannel.RemoteFeedUrl, false);
             }
 
-            var xml = xmlFormatter.BuildXml(currentChannel);
+            var xml = XmlFormatter.BuildXml(currentChannel);
 
             return new XmlResult(xml);
 
         }
 
-        private bool ShouldRedirect(RssChannel channel, HttpContext context)
+        protected bool ShouldRedirect(RssChannel channel, HttpContext context)
         {
             if (string.IsNullOrEmpty(channel.RemoteFeedUrl)) return false;
             if (string.IsNullOrEmpty(channel.RemoteFeedProcessorUseAgentFragment)) return false;
