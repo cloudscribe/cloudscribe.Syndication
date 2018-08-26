@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace cloudscribe.Syndication.Web.Controllers
 {
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class RssController : Controller
     {
         public RssController(
