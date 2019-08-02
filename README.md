@@ -9,7 +9,7 @@ It was implemented for use in [cloudscribe SimpleContent](https://github.com/joe
 | ------------- | ------------- |
 | [![Build status](https://ci.appveyor.com/api/projects/status/si9j58aa51wel2dv/branch/master?svg=true)](https://ci.appveyor.com/project/joeaudette/cloudscribe-syndication/branch/master)  | [![Build Status](https://travis-ci.org/cloudscribe/cloudscribe.Syndication.svg?branch=master)](https://travis-ci.org/cloudscribe/cloudscribe.Syndication)  |
 
-[![Join the chat at https://gitter.im/joeaudette/cloudscribe](https://badges.gitter.im/joeaudette/cloudscribe.svg)](https://gitter.im/joeaudette/cloudscribe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+If you have questions please visit our community forum https://www.cloudscribe.com/forum
 
 ## Rationale - why do we need this?
 
