@@ -2,17 +2,22 @@
 
   <PropertyGroup>
     <Description>cloudscribe.Syndication Class Library</Description>
-    <Version>3.0.0-preview20190902</Version>
+    <Version>3.0.0</Version>
     <Authors>Joe Audette</Authors>
     <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
     <PackageTags>cloudscribe;syndication;rss;atom;feed;xml</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/joeaudette/cloudscribe/master/cloudscribe-icon-32.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/joeaudette/cloudscribe.Syndication</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/cloudscribe/cloudscribe.Syndication</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/cloudscribe/cloudscribe.Syndication.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
