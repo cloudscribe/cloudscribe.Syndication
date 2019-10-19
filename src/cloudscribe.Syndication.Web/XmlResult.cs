@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -21,36 +22,37 @@ namespace cloudscribe.Syndication.Web
             this.ContentType = "text/xml";
         }
 
-//#if !DNXCORE50
-        public override void ExecuteResult(ActionContext context)
-        {
-            //context.HttpContext.Response.ContentType = this.ContentType;
-            //XmlTextWriter writer = new XmlTextWriter(context.HttpContext.Response.Body, Encoding.UTF8);
-            //Xml.WriteTo(writer);
-            //writer.Close();
+////#if !DNXCORE50
+//        public override void ExecuteResult(ActionContext context)
+//        {
+//            //context.HttpContext.Response.ContentType = this.ContentType;
+//            //XmlTextWriter writer = new XmlTextWriter(context.HttpContext.Response.Body, Encoding.UTF8);
+//            //Xml.WriteTo(writer);
+//            //writer.Close();
 
-            context.HttpContext.Response.ContentType = this.ContentType;
-            if (Xml != null)
-            {
-                Xml.Save(context.HttpContext.Response.Body, SaveOptions.DisableFormatting);
+//            context.HttpContext.Response.ContentType = this.ContentType;
+//            if (Xml != null)
+//            {
+//                Xml.Save(context.HttpContext.Response.Body, SaveOptions.DisableFormatting);
    
-            }   
-        }
-//#endif
+//            }   
+//        }
+////#endif
 
-        public override Task ExecuteResultAsync(ActionContext context)
+        public override async Task ExecuteResultAsync(ActionContext context)
         {
             context.HttpContext.Response.ContentType = this.ContentType;
             
             if (Xml != null)
             {
-                Xml.Save(context.HttpContext.Response.Body, SaveOptions.DisableFormatting);  
-                return Task.FromResult(0);
+                await Xml.SaveAsync(context.HttpContext.Response.Body, SaveOptions.DisableFormatting, CancellationToken.None);
+                //Xml.Save(context.HttpContext.Response.Body, SaveOptions.DisableFormatting);  
+                return;
                 
             }
             else
             {
-                return base.ExecuteResultAsync(context);
+                await base.ExecuteResultAsync(context);
             }
         }
     }
