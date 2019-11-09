@@ -1,26 +1,16 @@
-dist: trusty
 language: csharp
-install: true
-mono: latest
-dotnet: 2.1.101
-sudo: required
-addons:
-  apt:
-    packages:
-    - gettext
-    - libcurl4-openssl-dev
-    - libicu-dev
-    - libssl-dev
-    - libunwind8
-    - zlib1g
-
-before_install:
-  - chmod +x build.sh
-    
+solution: cloudscribe.Syndication.sln
+sudo: false
+dist: xenial
+mono: none
+dotnet: 3.0.100
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    - DOTNET_CLI_TELEMETRY_OPTOUT: 1   
+os:
+  - linux
+ 
 script:
-  - ./build.sh
-  
-cache:
-  directories:
-    - tools
-
+  - if test "$TRAVIS_OS_NAME" == "linux"; then dotnet restore; fi
+  - dotnet build -c Release
