@@ -7,25 +7,32 @@
 
 
 using cloudscribe.Syndication.Models.Rss;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace cloudscribe.Syndication.Web.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     public class RssController : Controller
     {
+        private readonly IWebHostEnvironment _env;
+
         public RssController(
             ILogger<RssController> logger,
+            IWebHostEnvironment env,
             IEnumerable<IChannelProvider> channelProviders = null,
             IChannelProviderResolver channelResolver = null,
             IXmlFormatter xmlFormatter = null
             )
         {
             Log = logger;
+            _env = env;
             ChannelProviders = channelProviders ?? new List<IChannelProvider>();
             if (channelProviders is List<IChannelProvider>)
             {
@@ -74,6 +81,9 @@ namespace cloudscribe.Syndication.Web.Controllers
             }
 
             var xml = XmlFormatter.BuildXml(currentChannel);
+
+            var processingInstruction = new XProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"/rss-style.xsl\"");
+            xml.AddFirst(processingInstruction);
 
             return new XmlResult(xml);
 
