@@ -7,7 +7,6 @@
 
 
 using cloudscribe.Syndication.Models.Rss;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,18 +20,14 @@ namespace cloudscribe.Syndication.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class RssController : Controller
     {
-        private readonly IWebHostEnvironment _env;
-
         public RssController(
             ILogger<RssController> logger,
-            IWebHostEnvironment env,
             IEnumerable<IChannelProvider> channelProviders = null,
             IChannelProviderResolver channelResolver = null,
             IXmlFormatter xmlFormatter = null
             )
         {
             Log = logger;
-            _env = env;
             ChannelProviders = channelProviders ?? new List<IChannelProvider>();
             if (channelProviders is List<IChannelProvider>)
             {
