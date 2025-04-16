@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>asp.netcore mvc controller for rss feeds</Description>
@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="rss.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -24,6 +28,17 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
-  
+	
+  <ItemGroup>
+    <Content Include="rss-style.xsl">
+	  <PackagePath>contentFiles/any/any/</PackagePath>
+	  <PackageCopyToOutput>true</PackageCopyToOutput>
+	  <Pack>true</Pack>
+	</Content>
+    <Content Include="rss.css"> 
+	  <PackagePath>contentFiles/any/any/</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+	  <Pack>true</Pack>
+	</Content>
+  </ItemGroup> 
 </Project>

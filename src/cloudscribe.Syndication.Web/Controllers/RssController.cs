@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace cloudscribe.Syndication.Web.Controllers
 {
@@ -74,6 +76,9 @@ namespace cloudscribe.Syndication.Web.Controllers
             }
 
             var xml = XmlFormatter.BuildXml(currentChannel);
+
+            var processingInstruction = new XProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"/rss-style.xsl\"");
+            xml.AddFirst(processingInstruction);
 
             return new XmlResult(xml);
 
