@@ -14,10 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="rss.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -30,15 +26,8 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Content Include="rss-style.xsl">
-	  <PackagePath>contentFiles/any/any/</PackagePath>
-	  <PackageCopyToOutput>true</PackageCopyToOutput>
-	  <Pack>true</Pack>
-	</Content>
-    <Content Include="rss.css"> 
-	  <PackagePath>contentFiles/any/any/</PackagePath>
-      <PackageCopyToOutput>true</PackageCopyToOutput>
-	  <Pack>true</Pack>
-	</Content>
-  </ItemGroup> 
+	<None Include="buildTransitive\cloudscribe.Syndication.Web.targets" Pack="true" PackagePath="buildTransitive/cloudscribe.Syndication.Web.targets" />
+    <None Include="buildTransitive\rss-style.xsl" Pack="true" PackagePath="buildTransitive/" />
+    <None Include="buildTransitive\rss.css" Pack="true" PackagePath="buildTransitive/" />
+  </ItemGroup>
 </Project>

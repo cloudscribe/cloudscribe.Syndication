@@ -19,9 +19,9 @@ a {
     color: #337ab7;
 }
 
-a:hover {
-    color: #296292;
-}
+    a:hover {
+        color: #296292;
+    }
 
 main, header {
     margin-block-end: 3rem;
