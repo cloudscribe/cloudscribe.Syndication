@@ -1,0 +1,17 @@
+<Project>
+  <Target Name="CopyRssAssets" AfterTargets="Build">
+    <Message Text="Running CopyRssAssets" Importance="High" />
+    <ItemGroup>
+		<RssAsset Include="$(MSBuildThisFileDirectory)\rss-style.xsl" />
+		<RssAsset Include="$(MSBuildThisFileDirectory)\rss.css" />
+    </ItemGroup>
+
+    <Message Text="Checking file: %(RssAsset.Identity)" Importance="High" />
+
+    <Copy
+      SourceFiles="@(RssAsset)"
+      DestinationFiles="@(RssAsset->'$(ProjectDir)wwwroot\%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true"
+      Condition="!Exists('$(ProjectDir)wwwroot\rss-style.xsl') Or !Exists('$(ProjectDir)wwwroot\rss.css')" />
+  </Target>
+</Project>
