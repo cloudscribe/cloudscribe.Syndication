@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>asp.netcore mvc controller for rss feeds</Description>
@@ -29,6 +29,10 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
-  
+	
+  <ItemGroup>
+	<None Include="buildTransitive\cloudscribe.Syndication.Web.targets" Pack="true" PackagePath="buildTransitive/cloudscribe.Syndication.Web.targets" />
+    <None Include="buildTransitive\rss-style.xsl" Pack="true" PackagePath="buildTransitive/" />
+    <None Include="buildTransitive\rss.css" Pack="true" PackagePath="buildTransitive/" />
+  </ItemGroup>
 </Project>
